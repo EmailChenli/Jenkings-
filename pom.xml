@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.eastcom.gt</groupId>
+        <artifactId>gt-spring-boot-parent</artifactId>
+        <version>1.2.0</version>
+    </parent>
+
+    <groupId>com.eastcom.sc</groupId>
+    <artifactId>sc-resource</artifactId>
+    <packaging>pom</packaging>
+    <version>2.0.0-SNAPSHOT</version>
+
+    <modules>
+        <module>sc-resource-api</module>
+        <module>sc-resource-server-core</module>
+        <module>sc-resource-server</module>
+        <module>sc-resource-starter-server</module>
+    </modules>
+
+    <properties>
+        <gt-common.core.version>1.2.0</gt-common.core.version>
+        <gt-common-web.version>1.2.0</gt-common-web.version>
+        <gt-common.version>1.5.0-SNAPSHOT</gt-common.version>
+        <gt-data-jpa.version>1.5.0-SNAPSHOT</gt-data-jpa.version>
+        <cmdb.version>2.0.0-SNAPSHOT</cmdb.version>
+        <!--启动脚本的主类名，可部署的模块必须填写-->
+        <main.class></main.class>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.eastcom.cloud.cmdb</groupId>
+                <artifactId>eastcom-cloud-cmdb-api</artifactId>
+                <version>${cmdb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eastcom.cloud.cmdb</groupId>
+                <artifactId>eastcom-cloud-cmdb-starter-inventory-server</artifactId>
+                <version>${cmdb.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.eastcom.gt.common</groupId>
+                <artifactId>gt-common-database</artifactId>
+                <version>${gt-common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.eastcom.gt.common</groupId>
+                <artifactId>gt-common-core</artifactId>
+                <version>${gt-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eastcom.gt.common</groupId>
+                <artifactId>gt-common-web</artifactId>
+                <version>${gt-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eastcom.gt.data</groupId>
+                <artifactId>gt-data-jpa</artifactId>
+                <version>${gt-data-jpa.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eastcom.sc</groupId>
+                <artifactId>sc-resource-api</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eastcom.sc</groupId>
+                <artifactId>sc-resource-server-core</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eastcom.sc</groupId>
+                <artifactId>sc-resource-starter-server</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <configuration>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

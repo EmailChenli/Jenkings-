@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    database: mysql
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  #不加这句则默认为myisam引擎
+  datasource:
+    url: jdbc:mysql://localhost:3306/sys_dictionary?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2b8
+    username: root
+    password: east#1390
+    #password: '{cipher}AQBW5asqiCQyb0CNvfYS3qaHL/xY7c73uNAyq6Jp2sXqBkSnuAD9aFHYGfPkkoDcWEE44kxl3djPZ5OGDO7ABpPI62Aa7iV3SuBy4bEf2KVWw8v4MqC/gctl1OYbkUMuuaPSXTq7v5S1SFBWDDmelzQvRbON1QdY+7x44AYhuZudV0lVHOzp12Vh/h50Q9GlY7F99TIWAzr+GNrklgQ97hnfuKHA+qAUWPVWlH0W7lOdNAQMcanVlRy2Cv0XUaSt45ZvouPZYg51A5vO/4JzrLKDJOWwlUj0ZhF21qw08IWJ4r+xOIffILBqI4SYoV6tjW7CM0EtTf1u7MiIzze1271el74khpRunR17hdAca36VqU9S7BEGXseII/QSErG7G84='
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 10
+      auto-commit: true
+      idle-timeout: 60000
+      pool-name: DatebookHikariCP
+      validation-timeout: 5000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1

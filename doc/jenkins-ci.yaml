@@ -1,0 +1,58 @@
+# 过程控制信息主体
+# 注意该字段是两层列表结果，第一层控制编译顺序，第二层并行编译（注意：代码扫描、打包、部署全部为并行，不受层级控制）
+modswitch:                          # 模块启用/禁用开关，与模块中的 skip 字段均起作用（向前兼容）
+stages:
+  - - name: sc-resource
+      skip: false
+      workdir:
+      build:
+        image:
+        steps:
+          - echo Build sc-resource
+          - mvn clean deploy $BUILD_MAVEN_OPTS -N
+      scan:
+      publish:
+      deploy:
+  - - name: sc-resource-api
+      skip: false
+      workdir: sc-resource-api
+      build:
+        image:
+        steps:
+          - echo Build sc-resource-api
+          - mvn clean deploy $BUILD_MAVEN_OPTS
+      scan:
+      publish:
+      deploy:
+  - - name: sc-resource-server-core
+      skip: false
+      workdir: sc-resource-server-core
+      build:
+        image:
+        steps:
+          - echo Build sc-resource-server-core
+          - mvn clean deploy $BUILD_MAVEN_OPTS
+      scan:
+      publish:
+      deploy:
+
+  - - name: sc-resource-server
+      skip: false
+      workdir: sc-resource-server
+      build:
+        image:
+        steps:
+          - echo Build sc-resource-server
+          - mvn clean deploy $BUILD_MAVEN_OPTS
+      scan:
+      publish:
+        steps:
+          - docker build -t sc-resource:${BUILD_NUMBER} .
+          - docker tag  sc-resource:${BUILD_NUMBER}  hub.eastcom-sw.com/sc/sc-resource:${VERSION}-${BUILD_NUMBER}
+          - docker push  hub.eastcom-sw.com/sc/sc-resource:${VERSION}-${BUILD_NUMBER}
+
+      deploy:
+        steps:
+          - sed -i "s/{VERSION}/${VERSION}/" ${WORKSPACE}/doc/k8s-yaml/step2-eastcom-sc-resource.yaml
+          - sed -i "s/{BUILD_NUMBER}/${BUILD_NUMBER}/" ${WORKSPACE}/doc/k8s-yaml/step2-eastcom-sc-resource.yaml
+          - kubectl apply -f ${WORKSPACE}/doc/k8s-yaml/step2-eastcom-sc-resource.yaml

@@ -1,0 +1,76 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sc-resource
+  namespace: sc
+spec:
+  externalIPs:
+    - 10.20.1.92
+  selector:
+    app: sc-resource
+  ports:
+    - name: svc-port
+      port: 8001
+      targetPort: 8001
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sc-resource
+  namespace: sc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sc-resource
+  template:
+    metadata:
+      labels:
+        app: sc-resource
+    spec:
+      volumes:
+        - name: localtime
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+      imagePullSecrets:
+        - name: harborsecret
+      containers:
+        - name: sc-resource
+          image: hub.eastcom-sw.com/sc/sc-resource:{VERSION}-{BUILD_NUMBER}
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1G
+            requests:
+              cpu: 500m
+              memory: 500Mi
+          env:
+            - name: PROJECT_LABEL
+              value: eastcom
+            - name: SPRING_PROFILES_ACTIVE
+              value: eastcom
+            - name: CONFIG_SERVICE_PASSWORD
+              value: password
+            - name: SW_AGENT_NAME
+              value: sc-resource
+            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
+              value: skywalking-oap.monitoring:11800
+            - name: SW_AGENT_NAMESPACE
+              value: tnms
+            - name: SW_AGENT_TRACE_IGNORE_PATH
+              value: '/actuator/**,/eureka/**,Hystrix/**'
+            - name: SC_RESOURCE_JAVA_OPTS
+              #请修改你的配置中心地址和分组
+              value: '--spring.cloud.nacos.config.server-addr=10.20.1.92:8888 --spring.cloud.nacos.config.group=TNMS_SC_GROUP'
+          volumeMounts:
+            - name: localtime
+              mountPath: /etc/localtime
+            - name: timezone
+              mountPath: /etc/timezone

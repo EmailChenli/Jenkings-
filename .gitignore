@@ -1,0 +1,37 @@
+# IntelliJ project files
+#------------------------------------------------------------
+.idea
+*.iml
+out
+gen
+target
+*.swp
+~$*
+
+# Eclipse IDE
+#------------------------------------------------------------
+**/.classpath
+**/.project
+**/.tern-project
+**/.settings/**
+#**/bin/
+
+# SVN
+**/.svn
+
+# Logs
+#------------------------------------------------------------
+*.log
+*/log/*
+*/logs/*
+*/*/logs/*
+*.log.gz
+
+
+# Other
+#------------------------------------------------------------
+**.pdb
+.factorypath
+workspace
+.project
+.classpath

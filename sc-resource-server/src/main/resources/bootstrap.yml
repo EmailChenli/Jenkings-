@@ -1,0 +1,13 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
+  application:
+    name: sc-resource
+  cloud:
+    nacos:
+      config:
+        server-addr: 10.20.1.92:8888
+        file-extension: yaml
+        group: TNMS_SC_GROUP

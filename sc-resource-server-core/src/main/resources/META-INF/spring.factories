@@ -1,0 +1,5 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+  com.eastcom.sc.config.DefaultEnvironmentPostProcessor
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.eastcom.sc.config.ScResourceServerAutoConfiguration,\
+  com.eastcom.sc.config.ScResourceComponentAutoConfiguration

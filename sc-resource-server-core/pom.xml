@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.eastcom.sc</groupId>
+        <artifactId>sc-resource</artifactId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>sc-resource-server-core</artifactId>
+
+    <dependencies>
+        <!-- 二方依赖 -->
+        <dependency>
+            <groupId>com.eastcom.gt.common</groupId>
+            <artifactId>gt-common-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eastcom.gt.common</groupId>
+            <artifactId>gt-common-database</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.eastcom.gt.common</groupId>
+            <artifactId>gt-common-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eastcom.gt.data</groupId>
+            <artifactId>gt-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eastcom.sc</groupId>
+            <artifactId>sc-resource-api</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.eastcom.cloud.cmdb</groupId>-->
+            <!--<artifactId>eastcom-cloud-cmdb-api</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.eastcom.cloud.cmdb</groupId>
+            <artifactId>eastcom-cloud-cmdb-starter-inventory-server</artifactId>
+        </dependency>
+
+        <!-- 三方依赖 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.ojdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

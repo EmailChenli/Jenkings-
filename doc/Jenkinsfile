@@ -1,0 +1,32 @@
+@Library('devops') _
+
+info = readYaml text: '''
+#repo:
+#  url: http://gitlab.eastcom-sw.com/components/tnms-system.git
+#  branch: develop
+#sonar:
+#  token: 3d2271e3598c5b1c57b3de4a114313508422e5a2
+harbor:
+  user: robot$guest
+  pass: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI0NjY1ODIyMzMsImlhdCI6MTYwMjU4MjIzMywiaXNzIjoiaGFyYm9yLXRva2VuLWRlZmF1bHRJc3N1ZXIiLCJpZCI6NzAsInBpZCI6ODAsImFjY2VzcyI6W3siUmVzb3VyY2UiOiIvcHJvamVjdC84MC9yZXBvc2l0b3J5IiwiQWN0aW9uIjoicHVzaCIsIkVmZmVjdCI6IiJ9XX0.scLyqNxVh_Tk6sv_JQmy5XxGbTFXZZHI7qhw2WLoVNxiEG5e9YHvNWi3eubtyPUSJwnod1BOySqWnDKoroBSZ1dIW_hpxih6jMrhu3PBEzRc_zCnX8O_PSA11yLjQyoU0U3402v9ynu58FuR1ghDYHsWl7Yge2nLDYrdNXv__W-QiJXEOFgIn21daCK3xbWLNoGvoJAWU31R1KHTR5Rb09XNpPSJCZoowNijJP8uTjOHO02cL0_uizW4lQqvyyCbEgM0oTdq0LaNyiLsZuGuGUv5LV9VsHk9tepWqorrDWcuv2JEtjdogaZqiicoxRKt_2AAbt-J2MoempPkYH-wXjK3L74VO1kODzo5RvLJ1SGo_aYfyGTveACqG0msvw-mKNDP2HtNwFPOb--4LVUkcSxmu2Jcv7J3UZIF_juwqoa7tX8A3jEYHcA23NkIac3kY12T7YCbJhf3Ec1u2MQNt1YOTr7EfM3M8tUDW-E3SJmEnE-P5896xl35YpI76nyvmp2Sm_ARm0CSCr6pAIYNXheYitqNIb8R-hwadiYuOWkO-FaFjuVLkzP2plX_u6_cmYBqnaLb9qxB85cF7nz2DaX-PJeSIBXq-O60CJ8RBEFE-gW_ntVabaV8iVbPGgo7mZTx38WNd-F_0T1SFHR8zrvGO3PA0_JjE_OuJiAto0E
+k8s:
+  namespace: sc
+  token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjBZRWRkdzZOUS1zYTRiRTZWeDBaczRrcURiUkNndmUxNUwzVjJiVl96MmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJzYyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLWZybjRxIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI0NTg3NzI0Yi03YzMxLTQ1ZjEtYjliMi05MmUxYTBjZTY0ZTYiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6c2M6ZGVmYXVsdCJ9.iZbuEigC8M_NoXfRagc6vNoVabvkbSHe6JZHOH2RyZM-IGuM5QjIuvHJd4bydeCRJS5TrYyAvjLVL0vZgGANHU8gwFbDxj0JoeqjXOslsBMw_GlbyOZw0sNQXDRM3baJjl9elmFQiHhNRR52uQeCJrm3AeAtoPPBG-ay_PwCvWbwOBYosy2Qxae6RrgV3L3eKoYQRhf-xvMyRG0Ziiows1D0KZU226JB2-bt1vLtFnkdUmmLXxB9g99s86xqMtpAh2Te3lQAImjBNJJI_1r-H3ZIzoVnebGRLS4yhkmrOPhKYRoL48svzBGjdCKYmVR7MwrlkGBCglXz69l8YINcTg
+env:                                # 全局环境变量（可以在 setps 命令中引用）
+  - VERSION=1.0.0
+  - BUILD_MAVEN_OPTS=-Dmaven.test.skip=true -P eastcom
+  - JAVA_VERSION=11
+mail: false                          # 邮件开关（默认不发送邮件）
+
+
+# 从其他文件扩展 info 信息（不会递归解析，所以这两个字段只在 Jenkinsfile 中有效）
+# readYaml text 内容不能超过 65535 字节，如果 stages 配置过于复杂，请将相应信息保存成其他文件并使用 infofiles 载入
+#envfiles:                          # 从其他文件载入环境变量
+#- xxx/xxx/file                     # 代码库中的文件路径（如果存在同名变量，则后载入的会覆盖前面的）,文件格式为列表项（即将 env 字段的内容单独放到其他文件中）
+infofiles:                         # 从其他文件载入流水线配置信息（除 repo 外的任何字段，包括 env）
+- doc/jenkins-ci.yaml                    # 代码库中的文件路径（如果存在同名字段，则后载入的会覆盖前面的）
+'''
+
+// 调用 Jenkins 共享库
+def pipeline = new com.eastcom.Pipeline()
+pipeline.main(info)
